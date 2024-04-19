@@ -2,27 +2,22 @@
 
 # chmod +x -R /SynoBoot && cd /SynoBoot && ./synomenu.sh install
 
-hdd="${HOME}/HDD.qcow2"
-imgboot="${HOME}/arc-flat.vmdk"
+hdd="HDD.qcow2"
+imgboot="arc-flat.vmdk"
 ram=3G
 core=2
 sizeStockage=2000G
 
 
 BootSynology() {
-    if ! [ -x "$(command -v qemu-system-x86_64)" ]; then
-        apt update -y
-        apt upgrade -y
-        apt install -y qemu-system qemu-utils qemu-system-gui qemu-kvm
-        apt install qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system -y
-    fi
-	
-    chmod -R 777 ${HOME}
+
+    #chmod -R 777 ${HOME}
     cd ${HOME}
 	
     if [ ! -f "$hdd" ]; then
 	    echo 'Ajoute d un nouveaux disque dur synology !'
         qemu-img create -f qcow2 ${hdd} ${sizeStockage}
+        chmod -R 777 ${hdd}
     fi
 	
     qemu-system-x86_64 -name vm_name,process="SynoB" -nographic -enable-kvm -boot order=c \
@@ -56,7 +51,7 @@ tee /lib/systemd/system/synomenu.service <<EOF
 Description=SynoBoot serveur web/mysql/ftp/...
 
 [Service]
-ExecStart=${dir}/synomenu.sh
+ExecStart=synomenu.sh
 [Install]
 WantedBy=multi-user.target
 EOF
