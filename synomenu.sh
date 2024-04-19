@@ -2,9 +2,8 @@
 
 # chmod +x -R /SynoBoot && cd /SynoBoot && ./synomenu.sh install
 
-dir="/home/container"
-hdd="${dir}/HDD.qcow2"
-imgboot="${dir}/arc-flat.vmdk"
+hdd="${HOME}/HDD.qcow2"
+imgboot="${HOME}/arc-flat.vmdk"
 ram=3G
 core=2
 sizeStockage=2000G
@@ -18,8 +17,8 @@ BootSynology() {
         apt install qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system -y
     fi
 	
-    chmod -R 777 ${dir}
-	cd ${dir}
+    chmod -R 777 ${HOME}
+    cd ${HOME}
 	
     if [ ! -f "$hdd" ]; then
 	    echo 'Ajoute d un nouveaux disque dur synology !'
@@ -43,10 +42,9 @@ BootSynology() {
 Boot() {
     while true
     do
-        #nohup /chemin/local/vers/toto.sh IP.ip.ip.ip port &
-        echo 'Start du server synology !'
+        echo 'Start : server !'
         BootSynology
-		    echo 'Arret du server synology ...'
+	echo 'Stop : server !'
         sleep 1	
     done	
 }
@@ -69,7 +67,7 @@ systemctl status synomenu.service
 
 case "$1" in
         start)
-		        pkill SynoB
+		pkill SynoB
                 BootSynology 
                 ;;
         stop)
@@ -84,14 +82,14 @@ case "$1" in
                 BootSynology
 		        ;;
         status)
-				systemctl status synomenu.service 
+		systemctl status synomenu.service 
 		        ;;				
         install)
                 Install
 				
 		        ;;				
         *)
-		        pkill SynoBoot
+		pkill SynoBoot
                 BootSynology 
 esac
 
