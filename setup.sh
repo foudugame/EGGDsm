@@ -18,7 +18,7 @@ nc=$(echo -en "\e[0m")
 lightblue=$(echo -en "\e[94m")
 lightgreen=$(echo -en "\e[92m")
 clear
-
+echo "Downlods the files"
 git clone https://github.com/foudugame/EGGDsm.git
 cd EGGDsm/install
 cat vm.tar.* > vmUN.tar
