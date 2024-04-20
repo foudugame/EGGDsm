@@ -20,8 +20,15 @@ lightgreen=$(echo -en "\e[92m")
 clear
 
 git https://github.com/foudugame/EGGDsm.git
-cd /BSyno
-cat boot.tar.* > dsm.tar
+cd EGGDsm/install
+cat vm.tar.* > vmUN.tar
+tar -xvf dsm.tar -C /BSyno
+
+
+
+
+cat boot.tar.* > dsmUN.tar
+
 tar -xvf dsm.tar -C /BSyno
 rm boot.tar.*
 rm dsm.tar   
