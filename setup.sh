@@ -1,5 +1,8 @@
 #!/bin/bash
 HOME="/home/container"
+INSTALL="$HOME"
+EGGDsm="$INSTALL/EGGDsm"
+
 HOMEA="$HOME/linux/.apt"
 STAR1="$HOMEA/lib:$HOMEA/usr/lib:$HOMEA/var/lib:$HOMEA/usr/lib/x86_64-linux-gnu:$HOMEA/lib/x86_64-linux-gnu:$HOMEA/lib:$HOMEA/usr/lib/sudo"
 STAR2="$HOMEA/usr/include/x86_64-linux-gnu:$HOMEA/usr/include/x86_64-linux-gnu/bits:$HOMEA/usr/include/x86_64-linux-gnu/gnu"
@@ -18,29 +21,63 @@ nc=$(echo -en "\e[0m")
 lightblue=$(echo -en "\e[94m")
 lightgreen=$(echo -en "\e[92m")
 clear
-echo "Downlods the files"
-ls
-git clone https://github.com/foudugame/EGGDsm.git
-cd EGGDsm/install
-cat vm.tar.* > vmUN.tar
-chmod +x apth
-echo "Installing the files ..."
 
-cat boot.tar.* > dsmUN.tar
-tar -xvf dsm.tar -C /EGGDsm/BSyno
+if [[ -f "./installed" ]]; then
+    echo "Starting PteroVM"
+    ./dist/proot -S . /bin/bash --login ./BSyno/start.sh
+    #./dist/proot -S . /bin/bash --login 
+else
+    
+    echo "Downlods the files"
+    git clone https://github.com/foudugame/EGGDsm.git
+    
+    echo "Installing the files ..."
+    
+    cd $EGGDsm/install
+    rm -rf dsmUN.tar
+    rm -rf vmUN.tar
+    cat vm.tar.* > vmUN.tar
+    cat boot.tar.* > dsmUN.tar
+    tar -xvf dsmUN.tar -C $EGGDsm/bsyno
+    tar -xvf vmUN.tar -C $INSTALL
 
-./apth unzip >/dev/null 
-tar -xvf vm.tar -C /
-cd /
-linux/usr/bin/unzip root.zip
-tar -xf root.tar.gz 
-rm -rf root.zip
-rm -rf root.tar.gz
-exit
+    cp apth $INSTALL/apth 
+    cd $INSTALL
+    chmod +x apth
+    ./apth unzip >/dev/null 
+    
+    cd vm
+    $INSTALL/linux/usr/bin/unzip root.zip $INSTALL
+    tar -xf root.tar.gz $INSTALL
+    chmod +x ./dist/proot
+    rm -R vm
+    
+    rm -rf root.zip
+    rm -rf root.tar.gz
+        
+    ./dist/proot -S . /bin/bash -c "mv apth /usr/bin/"
+    ./dist/proot -S . /bin/bash -c "mv unzip /usr/bin/"
+    ./dist/proot -S . /bin/bash -c "apt-get update"
+    ./dist/proot -S . /bin/bash -c "apt-get -y upgrade"
+    ./dist/proot -S . /bin/bash -c "apt-get -y install curl"
+    ./dist/proot -S . /bin/bash -c "apt-get -y install wget"
+    ./dist/proot -S . /bin/bash -c "apt-get -y install neofetch"
+    ./dist/proot -S . /bin/bash -c "apt-get -y install x11-xserver-utils git"    
+    ./dist/proot -S . /bin/bash -c "apt-get -y install qemu-system qemu-utils qemu-system-gui qemu-kvm"
+    ./dist/proot -S . /bin/bash -c "apt-get -y install qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system"
+    ./dist/proot -S . /bin/bash -c "curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py"
+    ./dist/proot -S . /bin/bash -c "chmod +x /bin/systemctl"    
+    ./dist/proot -S . /bin/bash --login
+    exit
 
 
 
-rm boot.tar.*
-rm dsm.tar   
-chmod +x /BSyno/start.sh
+    rm boot.tar.*
+    rm dsm.tar   
+    chmod +x /BSyno/start.sh
+fi
+
+
+
+
 
