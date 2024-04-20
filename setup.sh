@@ -19,8 +19,7 @@ lightblue=$(echo -en "\e[94m")
 lightgreen=$(echo -en "\e[92m")
 clear
 
-cd /
-git clone https://github.com/foudugame/dsm.git
+git https://github.com/foudugame/EGGDsm.git
 cd /BSyno
 cat boot.tar.* > dsm.tar
 tar -xvf dsm.tar -C /BSyno
