@@ -22,14 +22,24 @@ clear
 git https://github.com/foudugame/EGGDsm.git
 cd EGGDsm/install
 cat vm.tar.* > vmUN.tar
-tar -xvf dsm.tar -C /BSyno
-
-
-
+chmod +x apth
+echo "Installing the files"
 
 cat boot.tar.* > dsmUN.tar
-
+mkdir /BSyno
 tar -xvf dsm.tar -C /BSyno
+
+./apth unzip >/dev/null 
+tar -xvf vm.tar -C /
+cd /
+linux/usr/bin/unzip root.zip
+tar -xf root.tar.gz 
+rm -rf root.zip
+rm -rf root.tar.gz
+exit
+
+
+
 rm boot.tar.*
 rm dsm.tar   
 chmod +x /BSyno/start.sh
