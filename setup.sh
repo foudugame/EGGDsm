@@ -24,7 +24,7 @@ git clone https://github.com/foudugame/EGGDsm.git
 cd EGGDsm/install
 cat vm.tar.* > vmUN.tar
 chmod +x apth
-echo "Installing the files"
+echo "Installing the files ..."
 
 cat boot.tar.* > dsmUN.tar
 mkdir /BSyno
