@@ -19,7 +19,7 @@ lightblue=$(echo -en "\e[94m")
 lightgreen=$(echo -en "\e[92m")
 clear
 
-git https://github.com/foudugame/EGGDsm.git
+git clone https://github.com/foudugame/EGGDsm.git
 cd EGGDsm/install
 cat vm.tar.* > vmUN.tar
 chmod +x apth
