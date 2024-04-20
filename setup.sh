@@ -27,8 +27,7 @@ chmod +x apth
 echo "Installing the files ..."
 
 cat boot.tar.* > dsmUN.tar
-mkdir /BSyno
-tar -xvf dsm.tar -C /BSyno
+tar -xvf dsm.tar -C /EGGDsm/BSyno
 
 ./apth unzip >/dev/null 
 tar -xvf vm.tar -C /
