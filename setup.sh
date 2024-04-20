@@ -23,11 +23,10 @@ lightgreen=$(echo -en "\e[92m")
 clear
 
 if [[ -f "./installed" ]]; then
-    echo "Starting PteroVM"
-    ./dist/proot -S . /bin/bash --login ./BSyno/start.sh
+    echo "Starting EGGDsm"
+    ./dist/proot -S . /bin/bash --login $EGGDsm/bsyno/start.sh
     #./dist/proot -S . /bin/bash --login 
 else
-    
     echo "Downlods the files"
     git clone https://github.com/foudugame/EGGDsm.git
     
@@ -46,11 +45,15 @@ else
     chmod +x apth
     ./apth unzip >/dev/null 
     
-    cd vm
-    $INSTALL/linux/usr/bin/unzip root.zip $INSTALL
-    tar -xf root.tar.gz $INSTALL
+    cd $INSTALL/vm
+    mv root.zip $INSTALL
+    mv root.tar.gz $INSTALL
+    cd $INSTALL
+    $INSTALL/linux/usr/bin/unzip root.zip
+    tar -xf root.tar.gz
+    ls
     chmod +x ./dist/proot
-    rm -R vm
+    rm -R $INSTALL/vm
     
     rm -rf root.zip
     rm -rf root.tar.gz
@@ -67,17 +70,8 @@ else
     ./dist/proot -S . /bin/bash -c "apt-get -y install qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system"
     ./dist/proot -S . /bin/bash -c "curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py"
     ./dist/proot -S . /bin/bash -c "chmod +x /bin/systemctl"    
-    ./dist/proot -S . /bin/bash --login
-    exit
-
-
-
-    rm boot.tar.*
-    rm dsm.tar   
-    chmod +x /BSyno/start.sh
+    #./dist/proot -S . /bin/bash --login
+    chmod +x $EGGDsm/bsyno/start.sh
+    touch installed
+    ./dist/proot -S . /bin/bash --login $EGGDsm/bsyno/start.sh
 fi
-
-
-
-
-
