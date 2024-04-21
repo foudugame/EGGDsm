@@ -3,7 +3,7 @@
 # chmod +x -R /SynoBoot && cd /SynoBoot && ./synomenu.sh install
 
 dir="/home/container"
-hdd="${dir}/HDD.qcow2"
+hdd="${dir}/HDD2.qcow2"
 imgboot="${dir}/arc-flat.vmdk"
 ram=3G
 core=2
