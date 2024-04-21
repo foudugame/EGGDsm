@@ -2,89 +2,28 @@
 
 # chmod +x -R /SynoBoot && cd /SynoBoot && ./synomenu.sh install
 
-hdd="HDD.qcow2"
-imgboot="arc-flat.vmdk"
+hdd="/home/container/EGGDsm/bsyno/HDD.qcow2"
+imgboot="/home/container/EGGDsm/bsyno/arc-flat.vmdk"
 ram=3G
 core=2
 sizeStockage=2000G
 
-
 BootSynology() {
-
-    #chmod -R 777 ${HOME}
-    cd ${HOME}
-	
     if [ ! -f "$hdd" ]; then
 	    echo 'Ajoute d un nouveaux disque dur synology !'
         qemu-img create -f qcow2 ${hdd} ${sizeStockage}
         chmod -R 777 ${hdd}
     fi
-	
-    qemu-system-x86_64 -name vm_name,process="SynoB" -nographic -enable-kvm -boot order=c \
-        -m ${ram} \
-        -net nic,model=e1000 \
-        -net user,hostfwd=tcp::7681-:7681,hostfwd=tcp::80-:80,hostfwd=tcp::443-:443,hostfwd=tcp::5000-:5000,hostfwd=tcp::5001-:5001,hostfwd=tcp::3307-:3307,hostfwd=tcp::222-:222,hostfwd=tcp::221-:221 \
+	#
+    qemu-system-x86_64 -name vm_name,process="SynoB" -nographic -boot order=c \
+        -net nic,model=virtio-net-pci \
+        -net user,hostfwd=tcp::3002-:7681,hostfwd=tcp::7681-:3002, \
         -machine type=q35 \
-        -cpu host -smp ${core} \
         -device qemu-xhci -device usb-tablet \
         -drive file="${imgboot}",index=0,media=disk \
         -drive file="${hdd}",index=1,media=disk
         #-drive file="${dir}/SynologyHDD.qcow2",index=1,media=disk
 
 }
-
-
-Boot() {
-    while true
-    do
-        echo 'Start : server !'
-        BootSynology
-	echo 'Stop : server !'
-        sleep 1	
-    done	
-}
-
-Install() {
-
-tee /lib/systemd/system/synomenu.service <<EOF
-[Unit]
-Description=SynoBoot serveur web/mysql/ftp/...
-
-[Service]
-ExecStart=synomenu.sh
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl daemon-reload
-systemctl status synomenu.service 
-}
-
-
-case "$1" in
-        start)
-		pkill SynoB
-                BootSynology 
-                ;;
-        stop)
-                pkill SynoB
-                ;;
-        restart)
-                pkill SynoB
-                BootSynology
-                ;;
-        reload)
-                pkill SynoB
-                BootSynology
-		        ;;
-        status)
-		systemctl status synomenu.service 
-		        ;;				
-        install)
-                Install
-				
-		        ;;				
-        *)
-		pkill SynoBoot
-                BootSynology 
-esac
-
+BootSynology 
+/bin/bash
