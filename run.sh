@@ -8,6 +8,8 @@ imgboot="${dir}/arc-flat.vmdk"
 ram=3G
 core=2
 sizeStockage=2000G
+    TAG="$(curl -s https://api.github.com/repos/AuxXxilium/arc/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
+    wget "https://github.com/AuxXxilium/arc/releases/download/${TAG}/arc-${TAG}.vmdk-dyn.zip" -O "arc-vmdk.zip"
 
     if [ ! -f "$hdd" ]; then
         echo 'Ajoute d un nouveaux disque dur synology !'
