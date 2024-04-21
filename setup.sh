@@ -20,7 +20,15 @@ bold=$(echo -en "\e[1m")
 nc=$(echo -en "\e[0m")
 lightblue=$(echo -en "\e[94m")
 lightgreen=$(echo -en "\e[92m")
-clear
+
+# Default the TZ environment variable to UTC.
+TZ=${TZ:-UTC}
+export TZ
+
+# Set environment variable that holds the Internal Docker IP
+INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
+export INTERNAL_IP
+./dist/proot -S . /bin/bash -c "apt list --installed | grep gcc" > /dev/null 2>&1 &
 
 if [[ -f "./installed" ]]; then
     echo "Starting EGGDsm"
@@ -60,12 +68,18 @@ else
         
     ./dist/proot -S . /bin/bash -c "mv apth /usr/bin/"
     ./dist/proot -S . /bin/bash -c "mv unzip /usr/bin/"
+    ./dist/proot -S . /bin/bash -c "dpkg --add-architecture i386"
     ./dist/proot -S . /bin/bash -c "apt-get update"
     ./dist/proot -S . /bin/bash -c "apt-get -y upgrade"
     ./dist/proot -S . /bin/bash -c "apt-get -y install curl"
     ./dist/proot -S . /bin/bash -c "apt-get -y install wget"
     ./dist/proot -S . /bin/bash -c "apt-get -y install neofetch"
-    ./dist/proot -S . /bin/bash -c "apt-get -y install x11-xserver-utils git"    
+    ./dist/proot -S . /bin/bash -c "apt install -y lib32gcc-s1 lib32stdc++6 unzip curl iproute2 tzdata libgdiplus libsdl2-2.0-0:i386 "
+    ./dist/proot -S . /bin/bash -c "curl -sL https://deb.nodesource.com/setup_14.x | bash -"
+    ./dist/proot -S . /bin/bash -c "apt install -y nodejs"  
+    ./dist/proot -S . /bin/bash -c "mkdir /node_modules"  
+    ./dist/proot -S . /bin/bash -c "npm install --prefix / ws"  
+    ./dist/proot -S . /bin/bash -c "apt-get -y install x11-xserver-utils git kmod"    
     ./dist/proot -S . /bin/bash -c "apt-get -y install qemu-system qemu-utils qemu-system-gui qemu-kvm"
     ./dist/proot -S . /bin/bash -c "apt-get -y install qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system"
     ./dist/proot -S . /bin/bash -c "curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py"
