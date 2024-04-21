@@ -88,7 +88,7 @@ else
     libusb-1.0-0-dev libseccomp-dev libcap-ng-dev libaio-dev \
     liblzo2-dev libzip-dev libbz2-dev wget libsdl2-dev \
     libspice-protocol-dev libspice-server-dev qemu-utils
-    mkdir /tmp/qemu-build > /dev/null 2>&1 &
+    mkdir /tmp/qemu-build
     cd /tmp/qemu-build
     wget 'https://download.qemu.org/qemu-4.2.0.tar.xz'
     tar -x -f qemu-4.2.0.tar.xz
@@ -112,16 +112,6 @@ else
     chmod +x $EGGDsm/bsyno/start.sh
     cd $INSTALL
 
-./dist/proot -S . /bin/bash -c "apt install -y git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev build-essential libusbredirhost-dev libusb-dev libusb-1.0-0-dev libseccomp-dev libcap-ng-dev libaio-dev liblzo2-dev libzip-dev libbz2-dev wget libsdl2-dev libspice-protocol-dev libspice-server-dev"
-./dist/proot -S . /bin/bash -c "mkdir $EGGDsm/qemu-build"
-./dist/proot -S . /bin/bash -c "mkdir $EGGDsm/qemu-build/build"
-./dist/proot -S . /bin/bash -c "cd $EGGDsm/qemu-build"
-./dist/proot -S . /bin/bash -c "wget 'https://download.qemu.org/qemu-4.2.0.tar.xz'"
-./dist/proot -S . /bin/bash -c "tar -x -f qemu-4.2.0.tar.xz"
-./dist/proot -S . /bin/bash -c "cd build"
-./dist/proot -S . /bin/bash -c "../qemu-4.2.0/configure --target-list=x86_64-softmmu --prefix=/opt/qemu-custom --enable-kvm --enable-tools--enable-spice --enable-vnc --enable-sdl  --enable-libusb --enable-usb-redir --enable-seccomp --enable-linux-aio --enable-avx2 --enable-coroutine-pool --enable-cap-ng --enable-lzo --enable-bzip2"
-./dist/proot -S . /bin/bash -c "make -j4"
-    
     touch installed
     
     #./dist/proot -S . /bin/bash --login
