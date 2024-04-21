@@ -45,7 +45,7 @@ else
     tar -xvf vmUN.tar -C $INSTALL
     rm -rf vmUN.tar
     
-    cp apth $INSTALL/apth 
+    #cp apth $INSTALL/apth 
     cd $INSTALL
     chmod +x apth
     ./apth unzip >/dev/null 
@@ -54,8 +54,8 @@ else
     mv root.zip $INSTALL
     mv root.tar.gz $INSTALL
     cd $INSTALL
-    $INSTALL/linux/usr/bin/unzip root.zip > /dev/null 2>&1 &
-    tar -xf root.tar.gz > /dev/null 2>&1 &
+    $INSTALL/linux/usr/bin/unzip root.zip
+    tar -xf root.tar.gz
 
     chmod +x ./dist/proot
     rm -R $INSTALL/vm
