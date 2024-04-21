@@ -32,20 +32,17 @@ export INTERNAL_IP
 
 if [[ -f "./installed" ]]; then
     echo "Starting EGGDsm"
-    ./dist/proot -S . /bin/bash --login $EGGDsm/bsyno/start.sh
-    #./dist/proot -S . /bin/bash --login 
+     ./dist/proot -S . /bin/bash --login $EGGDsm/bsyno/start.sh
+     #./dist/proot -S . /bin/bash --login 
 else
     echo "Downlods the files"
     git clone https://github.com/foudugame/EGGDsm.git
-    
+
     echo "Installing the files ..."
     
     cd $EGGDsm/install
-    rm -rf dsmUN.tar
     rm -rf vmUN.tar
     cat vm.tar.* > vmUN.tar
-    cat boot.tar.* > dsmUN.tar
-    tar -xvf dsmUN.tar -C $EGGDsm/bsyno
     tar -xvf vmUN.tar -C $INSTALL
 
     cp apth $INSTALL/apth 
@@ -71,7 +68,7 @@ else
     ./dist/proot -S . /bin/bash -c "dpkg --add-architecture i386"
     ./dist/proot -S . /bin/bash -c "apt-get update"
     ./dist/proot -S . /bin/bash -c "apt-get -y upgrade"
-    ./dist/proot -S . /bin/bash -c "apt-get -y install curl"
+    ./dist/proot -S . /bin/bash -c "apt-get -y install curl busybox"
     ./dist/proot -S . /bin/bash -c "apt-get -y install wget"
     ./dist/proot -S . /bin/bash -c "apt-get -y install neofetch"
     ./dist/proot -S . /bin/bash -c "apt install -y lib32gcc-s1 lib32stdc++6 unzip curl iproute2 tzdata libgdiplus libsdl2-2.0-0:i386 "
@@ -84,6 +81,15 @@ else
     ./dist/proot -S . /bin/bash -c "apt-get -y install qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system"
     ./dist/proot -S . /bin/bash -c "curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py"
     ./dist/proot -S . /bin/bash -c "chmod +x /bin/systemctl"    
+    
+    cd $EGGDsm/bsyno
+    rm -R *.vmdk
+    TAG="$(curl -s https://api.github.com/repos/AuxXxilium/arc/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
+    #echo "https://github.com/AuxXxilium/arc/releases/download/${TAG}/arc-${TAG}.vmdk-dyn.zip"
+    ./dist/proot -S . /bin/bash -c "busybox wget \"https://github.com/AuxXxilium/arc/releases/download/${TAG}/arc-${TAG}.vmdk-dyn.zip\" -O \"$EGGDsm/bsyno/arc-vmdk.zip\""
+    $INSTALL/linux/usr/bin/unzip arc-vmdk.zip
+    rm -R arc-vmdk.zip
+    
     #./dist/proot -S . /bin/bash --login
     chmod +x $EGGDsm/bsyno/start.sh
     touch installed
