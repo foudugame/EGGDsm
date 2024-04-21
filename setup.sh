@@ -41,10 +41,10 @@ else
     echo "Installing the files ..."
     
     cd $EGGDsm/install
-    rm -rf vmUN.tar
     cat vm.tar.* > vmUN.tar
     tar -xvf vmUN.tar -C $INSTALL
-
+    rm -rf vmUN.tar
+    
     cp apth $INSTALL/apth 
     cd $INSTALL
     chmod +x apth
