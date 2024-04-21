@@ -45,7 +45,7 @@ else
     tar -xvf vmUN.tar -C $INSTALL
     rm -rf vmUN.tar
     
-    #cp apth $INSTALL/apth 
+    cp $EGGDsm/install/apth $INSTALL/apth 
     cd $INSTALL
     chmod +x apth
     ./apth unzip >/dev/null 
