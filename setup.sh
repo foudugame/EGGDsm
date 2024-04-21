@@ -51,14 +51,14 @@ else
     ./apth unzip >/dev/null 
     
     cd $INSTALL/vm
-    mv root.zip $HOME
-    mv root.tar.gz $HOME
+    mv root.zip $INSTALL
+    mv root.tar.gz $INSTALL
     cd $INSTALL
     $INSTALL/linux/usr/bin/unzip root.zip
     tar -xf root.tar.gz
 
     chmod +x ./dist/proot
-    rm -R $INSTALL/vm
+    #rm -R $INSTALL/vm
     
     rm -rf root.zip
     rm -rf root.tar.gz
