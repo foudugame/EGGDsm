@@ -8,8 +8,7 @@ imgboot="${dir}/arc-flat.vmdk"
 ram=3G
 core=2
 sizeStockage=2000G
-        apt update -y
-        apt upgrade -y
+
     if [ ! -f "$hdd" ]; then
 	    echo 'Ajoute d un nouveaux disque dur synology !'
         qemu-img create -f qcow2 ${hdd} ${sizeStockage}
