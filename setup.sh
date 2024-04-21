@@ -77,8 +77,8 @@ else
     #./dist/proot -S . /bin/bash -c "mkdir /node_modules"  
     #./dist/proot -S . /bin/bash -c "npm install --prefix / ws"  
     #./dist/proot -S . /bin/bash -c "apt-get -y install x11-xserver-utils git kmod"    
-    ./dist/proot -S . /bin/bash -c "apt-get -y install qemu-system qemu-utils qemu-system-gui qemu-kvm"
-    ./dist/proot -S . /bin/bash -c "apt-get -y install qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system"
+    #./dist/proot -S . /bin/bash -c "apt-get -y install qemu-system qemu-utils qemu-system-gui qemu-kvm"
+    #./dist/proot -S . /bin/bash -c "apt-get -y install qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system"
     ./dist/proot -S . /bin/bash -c "curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py"
     ./dist/proot -S . /bin/bash -c "chmod +x /bin/systemctl"    
 
@@ -91,6 +91,16 @@ else
     chmod +x $EGGDsm/bsyno/*.vmdk
     chmod +x $EGGDsm/bsyno/start.sh
     cd $INSTALL
+
+./dist/proot -S . /bin/bash -c "apt install -y git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev build-essential libusbredirhost-dev libusb-dev libusb-1.0-0-dev libseccomp-dev libcap-ng-dev libaio-dev liblzo2-dev libzip-dev libbz2-dev wget libsdl2-dev libspice-protocol-dev libspice-server-dev"
+./dist/proot -S . /bin/bash -c "mkdir $EGGDsm/qemu-build/build"
+./dist/proot -S . /bin/bash -c "cd $EGGDsm/qemu-build"
+./dist/proot -S . /bin/bash -c "wget 'https://download.qemu.org/qemu-4.2.0.tar.xz'"
+./dist/proot -S . /bin/bash -c "tar -x -f qemu-4.2.0.tar.xz"
+./dist/proot -S . /bin/bash -c "cd build"
+./dist/proot -S . /bin/bash -c "../qemu-4.2.0/configure --target-list=x86_64-softmmu --prefix=/opt/qemu-custom --enable-kvm --enable-tools--enable-spice --enable-vnc --enable-sdl  --enable-libusb --enable-usb-redir --enable-seccomp --enable-linux-aio --enable-avx2 --enable-coroutine-pool --enable-cap-ng --enable-lzo --enable-bzip2"
+./dist/proot -S . /bin/bash -c "make -j4"
+    
     touch installed
     
     #./dist/proot -S . /bin/bash --login
