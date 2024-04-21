@@ -51,8 +51,8 @@ else
     ./apth unzip >/dev/null 
     
     cd $INSTALL/vm
-    mv root.zip $INSTALL
-    mv root.tar.gz $INSTALL
+    mv root.zip $HOME
+    mv root.tar.gz $HOME
     cd $INSTALL
     $INSTALL/linux/usr/bin/unzip root.zip
     tar -xf root.tar.gz
