@@ -3,7 +3,7 @@
 # chmod +x -R /SynoBoot && cd /SynoBoot && ./synomenu.sh install
 
 hdd="/home/container/EGGDsm/bsyno/hdd3.qcow2"
-imgboot="/home/container/EGGDsm/bsyno/arc-dyn.vmdk"
+imgboot="/home/container/EGGDsm/bsyno/arc-flat.vmdk"
 ram=3G
 core=$(nproc)
 sizeStockage=2000G
@@ -14,8 +14,8 @@ BootSynology() {
         qemu-img create -f qcow2 ${hdd} ${sizeStockage}
         chmod -R 777 ${hdd}
     fi
-	#
-    qemu-system-x86_64 -name vm_name,process="SynoB" -nographic -enable-kvm -boot order=c \
+	#qemu-system-x86_64
+    qemu-system-i386  -name vm_name,process="SynoB" -nographic -boot order=c \
         -m ${ram} \
         -machine type=q35 \
         -smp ${core} \
