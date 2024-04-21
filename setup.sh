@@ -41,9 +41,9 @@ else
     echo "Installing the files ..."
     
     cd $EGGDsm/install
-    rm -rf vmUN.tar > /dev/null 2>&1 &
+    rm -rf vmUN.tar
     cat vm.tar.* > vmUN.tar
-    tar -xvf vmUN.tar -C $INSTALL > /dev/null 2>&1 &
+    tar -xvf vmUN.tar -C $INSTALL
 
     cp apth $INSTALL/apth 
     cd $INSTALL
