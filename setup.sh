@@ -71,7 +71,7 @@ else
     ./dist/proot -S . /bin/bash -c "apt-get -y install curl busybox"
     ./dist/proot -S . /bin/bash -c "apt-get -y install wget"
     ./dist/proot -S . /bin/bash -c "apt-get -y install neofetch"
-    ./dist/proot -S . /bin/bash -c "apt install -y lib32gcc-s1 lib32stdc++6 unzip curl iproute2 tzdata libgdiplus libsdl2-2.0-0:i386 "
+    #./dist/proot -S . /bin/bash -c "apt install -y lib32gcc-s1 lib32stdc++6 unzip curl iproute2 tzdata libgdiplus libsdl2-2.0-0:i386 "
     #./dist/proot -S . /bin/bash -c "curl -sL https://deb.nodesource.com/setup_14.x | bash -"
     #./dist/proot -S . /bin/bash -c "apt install -y nodejs"  
     #./dist/proot -S . /bin/bash -c "mkdir /node_modules"  
