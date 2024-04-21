@@ -14,8 +14,7 @@ BootSynology() {
         qemu-img create -f qcow2 ${hdd} ${sizeStockage}
         chmod -R 777 ${hdd}
     fi
-	#qemu-system-x86_64
-    qemu-system-i386  -name vm_name,process="SynoB" -nographic -boot order=c \
+	qemu-system-x86_64 -name vm_name,process="SynoB" -nographic -boot order=c \
         -m ${ram} \
         -machine type=q35 \
         -smp ${core} \
