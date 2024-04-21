@@ -83,6 +83,11 @@ else
     ./dist/proot -S . /bin/bash -c "chmod +x /bin/systemctl"    
 
     ./dist/proot -S . /bin/bash -c "
+    apt install -y git libglib2.0-dev libfdt-dev libpixman-1-dev \
+    zlib1g-dev build-essential libusbredirhost-dev libusb-dev \
+    libusb-1.0-0-dev libseccomp-dev libcap-ng-dev libaio-dev \
+    liblzo2-dev libzip-dev libbz2-dev wget libsdl2-dev \
+    libspice-protocol-dev libspice-server-dev qemu-utils
     mkdir $EGGDsm/qemu-build
     mkdir $EGGDsm/qemu-build/build
     cd $EGGDsm/qemu-build
