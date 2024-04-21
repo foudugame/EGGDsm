@@ -82,18 +82,17 @@ else
     ./dist/proot -S . /bin/bash -c "curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py"
     ./dist/proot -S . /bin/bash -c "chmod +x /bin/systemctl"    
 
-    cd $EGGDsm/bsyno
     rm -rf $EGGDsm/bsyno/*.vmdk > /dev/null 2>&1 &
     TAG="$(curl -s https://api.github.com/repos/AuxXxilium/arc/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
-    echo "https://github.com/AuxXxilium/arc/releases/download/${TAG}/arc-${TAG}.vmdk-dyn.zip"
     ./dist/proot -S . /bin/bash -c "busybox wget \"https://github.com/AuxXxilium/arc/releases/download/${TAG}/arc-${TAG}.vmdk-dyn.zip\" -O \"$EGGDsm/bsyno/arc-vmdk.zip\""
+    cd $EGGDsm/bsyno
     $INSTALL/linux/usr/bin/unzip arc-vmdk.zip
     rm -rf $EGGDsm/bsyno/arc-vmdk.zip > /dev/null 2>&1 &
-    cd $HOME
-
-    #./dist/proot -S . /bin/bash --login
+    chmod +x $EGGDsm/bsyno/*.vmdk
     chmod +x $EGGDsm/bsyno/start.sh
-    
+    cd $INSTALL
     touch installed
+    
+    #./dist/proot -S . /bin/bash --login
     ./dist/proot -S . /bin/bash --login $EGGDsm/bsyno/start.sh
 fi
