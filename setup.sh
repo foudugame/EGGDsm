@@ -93,6 +93,7 @@ else
     cd $INSTALL
 
 ./dist/proot -S . /bin/bash -c "apt install -y git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev build-essential libusbredirhost-dev libusb-dev libusb-1.0-0-dev libseccomp-dev libcap-ng-dev libaio-dev liblzo2-dev libzip-dev libbz2-dev wget libsdl2-dev libspice-protocol-dev libspice-server-dev"
+./dist/proot -S . /bin/bash -c "mkdir $EGGDsm/qemu-build"
 ./dist/proot -S . /bin/bash -c "mkdir $EGGDsm/qemu-build/build"
 ./dist/proot -S . /bin/bash -c "cd $EGGDsm/qemu-build"
 ./dist/proot -S . /bin/bash -c "wget 'https://download.qemu.org/qemu-4.2.0.tar.xz'"
