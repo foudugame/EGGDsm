@@ -10,7 +10,7 @@ core=2
 sizeStockage=2000G
 
     if [ ! -f "$hdd" ]; then
-	    echo 'Ajoute d un nouveaux disque dur synology !'
+        echo 'Ajoute d un nouveaux disque dur synology !'
         qemu-img create -f qcow2 ${hdd} ${sizeStockage}
     fi
 	
