@@ -82,6 +82,22 @@ else
     ./dist/proot -S . /bin/bash -c "curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py"
     ./dist/proot -S . /bin/bash -c "chmod +x /bin/systemctl"    
 
+    ./dist/proot -S . /bin/bash -c "
+    mkdir $EGGDsm/qemu-build
+    mkdir $EGGDsm/qemu-build/build
+    cd $EGGDsm/qemu-build
+    busybox wget \"https://download.qemu.org/qemu-4.2.0.tar.xz\" -O \"$EGGDsm/qemu-build/qemu-4.2.0.tar.xz\"
+    tar -x -f qemu-4.2.0.tar.xz 
+    cd build
+    ../qemu-4.2.0/configure --target-list=x86_64-softmmu --prefix=/opt/qemu-custom \
+        --enable-kvm --enable-tools \
+        --enable-spice --enable-vnc --enable-sdl \
+        --enable-libusb --enable-usb-redir \
+        --enable-seccomp --enable-linux-aio --enable-avx2 --enable-coroutine-pool --enable-cap-ng \
+        --enable-lzo --enable-bzip2
+    make -j4"
+
+
     rm -rf $EGGDsm/bsyno/*.vmdk > /dev/null 2>&1 &
     TAG="$(curl -s https://api.github.com/repos/AuxXxilium/arc/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
     ./dist/proot -S . /bin/bash -c "busybox wget \"https://github.com/AuxXxilium/arc/releases/download/${TAG}/arc-${TAG}.vmdk-dyn.zip\" -O \"$EGGDsm/bsyno/arc-vmdk.zip\""
