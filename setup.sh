@@ -88,11 +88,10 @@ else
     libusb-1.0-0-dev libseccomp-dev libcap-ng-dev libaio-dev \
     liblzo2-dev libzip-dev libbz2-dev wget libsdl2-dev \
     libspice-protocol-dev libspice-server-dev qemu-utils
-    mkdir $EGGDsm/qemu-build
-    mkdir $EGGDsm/qemu-build/build
-    cd $EGGDsm/qemu-build
-    busybox wget \"https://download.qemu.org/qemu-4.2.0.tar.xz\" -O \"$EGGDsm/qemu-build/qemu-4.2.0.tar.xz\"
-    tar -x -f qemu-4.2.0.tar.xz 
+    mkdir /tmp/qemu-build > /dev/null 2>&1 &
+    cd /tmp/qemu-build
+    wget 'https://download.qemu.org/qemu-4.2.0.tar.xz'
+    tar -x -f qemu-4.2.0.tar.xz
     cd build
     ../qemu-4.2.0/configure --target-list=x86_64-softmmu --prefix=/opt/qemu-custom \
         --enable-kvm --enable-tools \
