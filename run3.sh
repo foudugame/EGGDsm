@@ -20,7 +20,6 @@ sizeStockage=2000G
         -m ${ram} \
         -net nic,model=e1000 \
         -net user,hostfwd=tcp:${INTERNAL_IP}:3001-:7681,hostfwd=tcp:${INTERNAL_IP}:3002-:5000 \
-        -machine accel=kvm \
         -smp ${core} \
         -device qemu-xhci -device usb-tablet \
         -drive file="${imgboot}",index=0,media=disk \
