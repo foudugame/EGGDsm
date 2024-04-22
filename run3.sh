@@ -16,11 +16,12 @@ sizeStockage=2000G
         qemu-img create -f qcow2 ${hdd} ${sizeStockage}
     fi
 	
-    qemu-system-x86_64 -name vm_name,process="SynoB" -nographic -no-kvm-irqchip -boot order=c \
+    qemu-system-x86_64 -name vm_name,process="SynoB" -nographic -boot order=c \
         -m ${ram} \
         -net nic,model=e1000 \
         -net user,hostfwd=tcp:${INTERNAL_IP}:3001-:7681,hostfwd=tcp:${INTERNAL_IP}:3002-:5000 \
         -smp ${core} \
+	-cpu G4 -machine 40p \
         -device qemu-xhci -device usb-tablet \
         -drive file="${imgboot}",index=0,media=disk \
         -drive file="${hdd}",index=1,media=disk
