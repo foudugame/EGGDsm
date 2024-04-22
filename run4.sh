@@ -21,9 +21,6 @@ sizeStockage=2000G
         -net nic,model=e1000 \
         -net user,hostfwd=tcp:${INTERNAL_IP}:3001-:7681,hostfwd=tcp:${INTERNAL_IP}:3002-:5000 \
         -smp ${core} \
-	-machine type=q35 \
-	-cpu G4 \
-        -device qemu-xhci -device usb-tablet \
         -drive file="${imgboot}",index=0,media=disk \
         -drive file="${hdd}",index=1,media=disk
         #-drive file="${dir}/SynologyHDD.qcow2",index=1,media=disk
