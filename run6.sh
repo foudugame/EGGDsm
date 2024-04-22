@@ -5,8 +5,8 @@
 dir="/home/container"
 hdd="${dir}/HDD2.qcow2"
 imgboot="${dir}/arc-flat.vmdk"
-ram=3G
-core=2
+ram=6G
+core=6
 sizeStockage=2000G
 
     echo "https://github.com/AuxXxilium/arc/releases/download/"
