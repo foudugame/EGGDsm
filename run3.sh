@@ -19,7 +19,7 @@ sizeStockage=2000G
     qemu-system-x86_64 -name vm_name,process="SynoB" -nographic -boot order=c \
         -m ${ram} \
         -net nic,model=e1000 \
-        -net user,hostfwd=tcp::3001-:7681,hostfwd=tcp::3002-:5000 \
+        -net user,hostfwd=tcp:${INTERNAL_IP}:3001-:7681,hostfwd=tcp:${INTERNAL_IP}:3002-:5000 \
         -machine type=q35 \
         -smp ${core} \
         -device qemu-xhci -device usb-tablet \
