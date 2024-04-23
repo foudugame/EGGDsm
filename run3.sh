@@ -19,7 +19,7 @@ sizeStockage=2000G
     qemu-system-x86_64 -name vm_name,process="SynoB" -nographic -enable-kvm -boot order=c \
         -m ${ram} \
         -net nic,model=e1000 \
-        -net user,hostfwd=tcp::7681-:7681,hostfwd=tcp::80-:80,hostfwd=tcp::443-:443,hostfwd=tcp::5000-:5000,hostfwd=tcp::5001-:5001,hostfwd=tcp::3307-:3307,hostfwd=tcp::222-:222,hostfwd=tcp::221-:221 \
+        -net user,hostfwd=tcp::20204-:7681,hostfwd=tcp::80-:80,hostfwd=tcp::443-:443,hostfwd=tcp::20205-:5000,hostfwd=tcp::5001-:5001,hostfwd=tcp::3307-:3307,hostfwd=tcp::222-:222,hostfwd=tcp::221-:221 \
         -machine type=q35 \
         -cpu host -smp ${core} \
         -device qemu-xhci -device usb-tablet \
